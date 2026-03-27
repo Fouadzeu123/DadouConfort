@@ -1,0 +1,291 @@
+Développe une application de gestion interne 100% mobile-first pour l’entreprise DadouConfort, spécialisée dans la menuiserie et les travaux associés. L’application doit être conçue pour être utilisée uniquement par DadouConfort, qui est le seul utilisateur ayant accès à l’application. Il n’y a donc pas de gestion multi-utilisateur complexe côté métier. L’objectif principal est de lui permettre de gérer facilement ses clients, ses chantiers, ses devis, ses contrats, ses dépenses, ses paiements, ainsi que les prestataires externes avec qui il collabore selon les besoins de certains travaux. L’application doit être développée avec Laravel + Vue.js + Inertia.js, avec une interface 100% pensée pour mobile, fluide, moderne, rapide, claire, tactile et agréable à utiliser sur smartphone Android.
+
+L’architecture doit être pensée mobile-first, avec une excellente ergonomie sur petit écran. Il faut éviter toute interface desktop compressée. Les écrans doivent utiliser de grandes cartes, de gros boutons, des formulaires bien espacés, une navigation simple, des icônes claires, des listes filtrables, un design propre et professionnel adapté à un artisan. Utiliser Tailwind CSS pour le style. L’application doit pouvoir être emballée plus tard avec Capacitor pour Android. La base de données est locale dans le contexte du projet, mais la structure du code doit rester propre, modulaire, maintenable et évolutive.
+
+Le but de l’application est d’aider DadouConfort à générer rapidement ses devis, contrats et autres documents utiles, suivre ses clients, organiser ses chantiers, suivre ses recettes et ses dépenses, et gérer les prestataires externes qu’il sollicite quand un chantier nécessite d’autres compétences comme la charpente, la soudure, la peinture, la maçonnerie, etc.
+
+Important : les prestataires ne créent pas eux-mêmes de compte et n’ont aucun accès à l’application. C’est uniquement DadouConfort qui ajoute, modifie, supprime et gère les prestataires. C’est également DadouConfort qui décide, pour chaque chantier, quels prestataires seront affectés, à quel rôle, pour quel montant convenu, et avec quel état de paiement. Les prestataires sont donc de simples fiches de gestion interne, pas des utilisateurs de l’application.
+
+Fonctionnalités principales à développer :
+
+1. Tableau de bord mobile
+Créer un écran d’accueil clair avec résumé des informations importantes :
+- nombre de devis en brouillon, envoyés, acceptés, refusés
+- nombre de contrats actifs
+- nombre de chantiers en cours, terminés, suspendus
+- total des montants à recevoir des clients
+- total des montants à payer aux prestataires
+- dépenses récentes
+- accès rapide via gros boutons à : nouveau client, nouveau devis, nouveau contrat, nouveau chantier, nouveau paiement
+
+2. Gestion des clients
+Créer un module complet de gestion des clients. Chaque client doit contenir :
+- nom complet
+- numéro de téléphone
+- adresse
+- localisation
+- notes
+- historique des devis
+- historique des contrats
+- historique des chantiers
+Prévoir écran de liste, recherche, création, modification, suppression et fiche détaillée client.
+
+3. Gestion des prestataires
+Créer un module de gestion des prestataires externes, ajoutés uniquement par DadouConfort. Chaque prestataire doit contenir :
+- nom complet
+- numéro de téléphone
+- spécialité
+- adresse ou zone d’intervention
+- disponibilité
+- notes internes
+- tarif habituel ou information tarifaire indicative
+- historique des chantiers sur lesquels il a été affecté
+- total déjà payé
+- solde éventuel restant sur les chantiers liés
+Les spécialités peuvent inclure par exemple : charpentier, soudeur, peintre, maçon, vitrier, transporteur, manœuvre, plombier, électricien, etc.
+Prévoir écran de liste, recherche, création, modification, suppression et fiche détaillée.
+Important : les prestataires ne se connectent pas à l’application. Ils sont uniquement gérés en interne.
+
+4. Gestion des services/prestations
+Créer une table de services réutilisables pour accélérer la création de devis :
+- nom du service
+- description
+- unité
+- prix indicatif
+- catégorie
+Exemples : porte en bois, fenêtre, plafond, armoire, lit, cuisine, charpente, réparation, pose, finition, vernissage, etc.
+
+5. Gestion des chantiers
+Créer un module chantier central. Chaque chantier doit contenir :
+- client associé
+- titre du chantier
+- description
+- localisation
+- date de début
+- date prévue de fin
+- statut : en attente, en cours, terminé, suspendu, annulé
+- notes
+- devis associé si disponible
+- contrat associé si disponible
+- prestataires affectés
+- dépenses liées
+- paiements liés
+La fiche chantier doit être très importante et servir de point central de suivi.
+Pour chaque chantier, DadouConfort doit pouvoir :
+- affecter un ou plusieurs prestataires
+- définir le rôle de chaque prestataire sur ce chantier
+- définir le montant convenu avec chaque prestataire
+- enregistrer le montant déjà payé
+- calculer automatiquement le solde restant
+- retirer ou modifier l’affectation d’un prestataire
+
+6. Gestion des devis
+Créer un module de devis rapide, professionnel et imprimable.
+Chaque devis doit contenir :
+- numéro automatique
+- date
+- client
+- chantier éventuel
+- lignes de devis
+- quantité
+- prix unitaire
+- total par ligne
+- sous-total
+- remise
+- coût transport
+- coût main d’œuvre
+- total général
+- acompte éventuel
+- reste à payer
+- notes
+- statut : brouillon, envoyé, accepté, refusé, expiré
+Fonctionnalités :
+- création rapide de devis
+- ajout de lignes manuelles
+- ajout de lignes depuis les services enregistrés
+- calculs automatiques
+- duplication d’un devis existant
+- conversion d’un devis accepté en contrat
+- génération PDF A4 professionnelle
+- impression simple
+L’interface de création doit être très fluide sur mobile.
+
+7. Gestion des contrats
+Créer un module contrat qui peut être généré automatiquement à partir d’un devis accepté ou manuellement.
+Chaque contrat doit contenir :
+- numéro automatique
+- client
+- chantier
+- devis de référence si applicable
+- objet du contrat
+- description des travaux
+- montant convenu
+- date de signature
+- date de début
+- date de fin estimée
+- conditions de paiement
+- clauses
+- statut : brouillon, actif, terminé, résilié
+Fonctionnalités :
+- création manuelle ou depuis devis
+- génération PDF
+- impression
+- duplication
+- archivage
+
+8. Gestion des paiements
+Créer un module de paiements pour enregistrer :
+- acomptes reçus des clients
+- paiements partiels
+- soldes
+- paiements versés aux prestataires
+Chaque paiement doit pouvoir contenir :
+- type de paiement
+- montant
+- date
+- mode de paiement
+- référence optionnelle
+- note
+- client ou prestataire concerné
+- chantier concerné
+Prévoir historique clair et filtres.
+
+9. Gestion des dépenses
+Créer un module pour enregistrer les dépenses liées aux chantiers :
+- achat de matériaux
+- transport
+- main d’œuvre
+- imprévus
+- location d’outils
+- autres frais
+Chaque dépense :
+- titre
+- description
+- montant
+- date
+- catégorie
+- chantier lié
+L’application doit permettre de visualiser la rentabilité approximative d’un chantier :
+montant du chantier - dépenses - paiements prestataires = marge estimée
+
+10. Documents et impression
+L’application doit générer des documents propres, professionnels et imprimables en PDF :
+- devis
+- contrats
+- reçus de paiement
+- fiches chantier
+Tous les documents doivent être au format A4 avec une mise en page soignée, compatible impression, avec logo DadouConfort, coordonnées, numéro du document, dates et contenu bien structuré.
+
+11. Numérotation automatique
+Mettre en place une numérotation automatique paramétrable :
+- devis : DEV-2026-001
+- contrats : CTR-2026-001
+- paiements : PAY-2026-001
+- chantiers : CH-2026-001
+
+12. Recherche, filtres et productivité
+L’application doit être rapide à utiliser au quotidien. Ajouter :
+- recherche globale
+- filtres par statut
+- filtres par date
+- filtres par client
+- filtres par chantier
+- duplication rapide
+- actions contextuelles sur mobile
+- boutons flottants pour création rapide
+
+13. Accès et sécurité
+Une seule personne utilise l’application : DadouConfort.
+Prévoir une authentification simple et sécurisée pour lui seul.
+Pas de rôles complexes pour les prestataires ou les clients.
+Pas de portail prestataire ni portail client.
+
+14. Structure technique attendue
+Utiliser :
+- Laravel pour le backend
+- Vue 3 + Inertia.js pour le frontend
+- Tailwind CSS pour le design
+- architecture propre, composants réutilisables
+- formulaires validés côté frontend et backend
+- code maintenable, lisible et extensible
+- migrations, seeders, factories si utile
+- services/classes de logique métier lorsque nécessaire
+- génération PDF propre
+- bonnes pratiques Laravel et Vue
+
+15. Interface mobile
+Exiger une vraie UX mobile :
+- bottom navigation ou navigation compacte adaptée au smartphone
+- cartes lisibles
+- typographie claire
+- gros champs
+- gros boutons
+- peu de texte inutile
+- fiches détaillées faciles à lire
+- formulaires par sections
+- actions principales accessibles avec le pouce
+- look moderne, professionnel, artisanal premium
+
+16. Base de données et modèles recommandés
+Prévoir au minimum les entités suivantes :
+- users
+- clients
+- collaborators / providers / prestataires
+- services
+- projects / chantiers
+- quotations / devis
+- quotation_items
+- contracts
+- project_collaborators
+- payments
+- expenses
+- settings si nécessaire
+Les relations doivent être propres et cohérentes.
+
+17. Logique métier spécifique aux prestataires
+Ceci est très important :
+- un prestataire n’est pas un utilisateur
+- un prestataire est ajouté manuellement par DadouConfort
+- DadouConfort choisit s’il affecte ou non un prestataire à un chantier
+- un même prestataire peut intervenir sur plusieurs chantiers
+- sur chaque chantier, on doit pouvoir définir :
+  - son rôle
+  - le montant convenu
+  - le montant payé
+  - le solde
+  - des notes
+- toutes les décisions d’affectation sont faites par DadouConfort uniquement
+
+18. Livrables attendus
+Je veux une base de projet fonctionnelle et bien structurée avec :
+- backend Laravel prêt
+- frontend Vue/Inertia mobile-first
+- migrations
+- modèles
+- contrôleurs
+- composants UI
+- pages principales
+- CRUD complets essentiels
+- génération PDF des devis et contrats
+- jeu de données de démonstration cohérent
+- code propre et commenté aux endroits utiles
+
+19. Priorité de développement
+Commencer par un MVP solide avec les modules suivants :
+- authentification simple
+- tableau de bord
+- clients
+- prestataires
+- services
+- chantiers
+- devis
+- contrats
+- paiements
+- dépenses
+- impression PDF
+Puis optimiser l’UX mobile et la cohérence générale.
+
+20. Qualité attendue
+Je veux une application professionnelle, claire, élégante, mobile, pratique, rapide à utiliser sur le terrain, pensée pour faciliter le travail quotidien de DadouConfort sans complexité inutile. L’expérience utilisateur doit être simple, logique et orientée productivité artisanale. Le projet doit être prêt à évoluer plus tard avec sauvegarde avancée, synchronisation, photos de chantier, signature et emballage Android via Capacitor.
+
+Construit le projet avec une vraie vision produit, pas juste une suite de CRUD basiques. L’application doit résoudre concrètement les besoins métier de DadouConfort au quotidien.

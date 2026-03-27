@@ -1,0 +1,159 @@
+Dans l’application DadouConfort (Laravel + Vue 3 + Inertia + Tailwind CSS), je veux que toute l’interface soit conçue en **mobile-first réel**, et plus précisément que la **top bar (app bar)** soit conçue comme dans une vraie application mobile Android/iOS, et non comme un header de site web.
+
+Objectif :
+Créer une **App Bar mobile moderne, minimaliste, ergonomique et cohérente** sur toutes les pages de l’application.
+
+---
+
+1. COMPORTEMENT GLOBAL DE LA TOP BAR
+
+---
+
+* La top bar doit être **fixée en haut de l’écran (sticky/fixed)**.
+* Elle doit être **compacte (hauteur réduite)** et adaptée au mobile.
+* Elle ne doit PAS ressembler à un header web classique (pas de menu horizontal, pas de liens multiples).
+* Elle doit être identique dans son style sur toute l’application pour garder une cohérence visuelle.
+
+---
+
+2. CONTENU DE LA TOP BAR
+
+---
+
+La top bar doit contenir uniquement :
+
+* À gauche :
+
+  * Bouton retour (←) SI on est dans une sous-page
+  * Sinon, un bouton menu ou rien
+
+* Au centre :
+
+  * Le **titre de la page** (ex: Clients, Devis, Chantiers, Contrats)
+
+* À droite :
+
+  * 1 ou 2 actions maximum (ex: icône +, recherche, menu options)
+
+Exemples :
+
+* Page principale :
+  "Clients"         [+]
+* Sous-page :
+  ←  "Détail client"     [⋮]
+
+IMPORTANT :
+
+* Ne jamais surcharger la top bar
+* Maximum 2 actions à droite
+
+---
+
+3. STYLE VISUEL
+
+---
+
+* Design propre, moderne, professionnel
+* Fond blanc ou couleur légère
+* Ombre légère en bas (shadow-sm)
+* Texte lisible et bien centré
+* Icônes simples (Heroicons ou équivalent)
+* Bonne taille pour le tactile (zones cliquables larges)
+
+Utiliser Tailwind CSS pour :
+
+* padding équilibré
+* alignement flex
+* espacement correct
+* responsive mobile
+
+---
+
+4. RESPONSIVE & MOBILE UX
+
+---
+
+* La top bar doit être optimisée pour écran smartphone
+* Les boutons doivent être facilement accessibles au pouce
+* Le titre ne doit pas être trop long (prévoir ellipsis si nécessaire)
+* La navigation doit être intuitive
+
+---
+
+5. COMPORTEMENT PAR TYPE DE PAGE
+
+---
+
+Dashboard (Accueil) :
+
+* Pas de bouton retour
+* Titre centré : "Accueil"
+* Icône optionnelle à droite
+
+Pages principales (Clients, Devis, Chantiers, etc.) :
+
+* Pas de bouton retour
+* Titre de la section
+* Bouton "+" à droite pour création rapide
+
+Pages secondaires (ex: détail client, création devis) :
+
+* Bouton retour à gauche
+* Titre de la page
+* Menu ou options à droite si nécessaire
+
+---
+
+6. INTÉGRATION AVEC LA NAVIGATION MOBILE
+
+---
+
+* La top bar doit fonctionner avec une **bottom navigation bar** (barre en bas)
+* Elle ne doit PAS contenir de navigation principale
+* La navigation principale doit être en bas (Accueil, Clients, Devis, etc.)
+
+---
+
+7. COMPOSANT RÉUTILISABLE
+
+---
+
+Créer un composant Vue réutilisable, par exemple :
+
+<AppBar
+title="Clients"
+showBackButton={true/false}
+actions={[...]}
+/>
+
+Ce composant doit être utilisé dans toutes les pages pour garantir la cohérence.
+
+---
+
+8. ANIMATIONS ET FLUIDITÉ
+
+---
+
+* Transition fluide entre pages
+* Apparition/disparition douce
+* Scroll propre (la top bar peut rester fixe)
+
+---
+
+9. ERREURS À ÉVITER
+
+---
+
+* Ne pas faire un header de type site web
+* Ne pas ajouter trop de boutons
+* Ne pas mettre de menu horizontal
+* Ne pas surcharger l’interface
+* Ne pas utiliser une hauteur trop grande
+
+---
+
+## OBJECTIF FINAL
+
+Obtenir une top bar qui donne une vraie sensation d’application mobile professionnelle, fluide, moderne, simple à utiliser sur le terrain, parfaitement adaptée à l’usage quotidien de DadouConfort.
+
+L’UX doit être similaire aux applications mobiles modernes Android/iOS.

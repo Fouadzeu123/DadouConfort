@@ -1,0 +1,190 @@
+Dans l’application DadouConfort (Laravel + Vue + Inertia, mobile-first), je veux mettre en place un système de gestion de deux types de contrats différents :
+
+1. Contrat entre DadouConfort et le Client
+2. Contrat entre DadouConfort et le Prestataire
+
+L’application doit permettre de générer automatiquement ces deux types de contrats avec des textes prédéfinis, une mise en page professionnelle identique, et des champs dynamiques remplis automatiquement depuis la base de données.
+
+---
+
+1. CONTRAT DADOUCONFORT – CLIENT
+
+---
+
+Ce contrat est signé entre DadouConfort et le client final pour la réalisation des travaux.
+
+Structure du contrat :
+
+* En-tête avec logo DadouConfort
+* Informations DadouConfort (nom, téléphone, email, adresse)
+* Titre : CONTRAT DE PRESTATION DE SERVICES
+* Numéro du contrat (auto)
+* Date
+
+Identification des parties :
+Texte prédéfini :
+Entre les soussignés :
+L’Entreprise DadouConfort Menuiserie, représentée par Monsieur [Nom du responsable], ci-après dénommé « Le Prestataire »,
+Et
+Monsieur/Madame [Nom du client], Téléphone : [Téléphone], demeurant à [Adresse], ci-après dénommé « Le Client ».
+
+Champs dynamiques à remplir automatiquement :
+
+* Nom client
+* Téléphone client
+* Adresse client
+* Description des travaux
+* Lieu du chantier
+* Date début
+* Date fin
+* Montant
+* Acompte
+* Reste à payer
+
+Clauses prédéfinies :
+
+* Objet du contrat
+* Durée des travaux
+* Montant et modalités de paiement
+* Obligations du prestataire
+* Obligations du client
+* Modification des travaux
+* Résiliation
+* Litiges (tribunaux compétents du Cameroun)
+* Signature
+
+Le contrat doit être généré en PDF format A4 avec une mise en page professionnelle identique pour tous les contrats.
+
+---
+
+2. CONTRAT DADOUCONFORT – PRESTATAIRE
+
+---
+
+Ce contrat est un contrat interne entre DadouConfort et un prestataire externe (charpentier, peintre, soudeur, maçon, etc.) que DadouConfort engage pour travailler sur un chantier.
+
+Titre : CONTRAT DE COLLABORATION / CONTRAT DE SOUS-TRAITANCE
+
+Structure :
+
+En-tête :
+
+* Logo DadouConfort
+* DadouConfort informations
+* Titre : CONTRAT DE SOUS-TRAITANCE
+* Numéro du contrat (auto)
+* Date
+
+Identification des parties :
+Texte prédéfini :
+Entre :
+L’Entreprise DadouConfort Menuiserie, représentée par Monsieur [Nom du responsable], ci-après dénommé « L’Entreprise »,
+Et :
+Monsieur [Nom du prestataire], Téléphone : [Téléphone prestataire], Spécialité : [Spécialité], ci-après dénommé « Le Prestataire ».
+
+Objet :
+Le présent contrat a pour objet la réalisation des travaux suivants dans le cadre du chantier : [Nom ou description du chantier].
+
+Lieu des travaux : [Lieu]
+
+Durée :
+Le prestataire interviendra du [Date début] au [Date fin].
+
+Rémunération :
+Le montant convenu pour la réalisation des travaux est de :
+[Montant] FCFA.
+
+Modalités de paiement :
+
+* Une avance de [Montant avance] FCFA peut être versée.
+* Le solde sera payé après réalisation des travaux.
+
+Obligations du prestataire :
+Texte prédéfini :
+
+* Réaliser correctement le travail demandé.
+* Respecter les délais.
+* Respecter les consignes de DadouConfort.
+* Répondre de la qualité de son travail.
+
+Obligations de DadouConfort :
+Texte prédéfini :
+
+* Payer le prestataire selon le montant convenu.
+* Fournir les informations nécessaires au travail.
+* Faciliter l’accès au chantier.
+
+Résiliation :
+En cas de mauvaise exécution du travail ou non-respect des engagements, le contrat peut être résilié.
+
+Litiges :
+En cas de litige, les parties privilégient un règlement à l’amiable. À défaut, les tribunaux compétents du Cameroun seront saisis.
+
+Signature :
+DadouConfort
+Le Prestataire
+
+---
+
+3. EXIGENCES TECHNIQUES
+
+---
+
+* Créer une table contract_templates pour stocker les modèles de contrats.
+
+* Créer une table contracts avec un champ type : client ou prestataire.
+
+* Lors de la création d’un contrat, l’utilisateur choisit :
+
+  * Contrat Client
+  * Contrat Prestataire
+
+* L’application charge le modèle correspondant et remplace automatiquement les variables :
+  {client_name}
+  {client_phone}
+  {client_address}
+  {provider_name}
+  {provider_phone}
+  {provider_specialty}
+  {project_name}
+  {project_location}
+  {start_date}
+  {end_date}
+  {amount}
+  {advance}
+  {balance}
+  {today_date}
+  {contract_number}
+
+* Créer un système de variables dynamiques dans les modèles de contrat.
+
+* Créer un système de prévisualisation avant export PDF.
+
+* Générer les contrats en PDF (format A4).
+
+* Numérotation automatique :
+
+  * Contrat client : CLC-2026-001
+  * Contrat prestataire : CLP-2026-001
+
+---
+
+4. INTERFACE MOBILE
+
+---
+
+Quand DadouConfort veut créer un contrat, il doit juste sélectionner :
+
+* Type de contrat (Client ou Prestataire)
+* Client ou Prestataire
+* Chantier
+* Montant
+* Avance
+* Dates
+
+Et le contrat complet est généré automatiquement avec tous les textes.
+
+Objectif :
+Permettre de générer un contrat client ou un contrat prestataire en moins de 2 minutes, prêt à imprimer, avec un texte professionnel et toujours la même mise en page.
+
+Le code doit être propre, avec la logique de génération de contrat dans un service Laravel dédié (ex : ContractGeneratorService).
