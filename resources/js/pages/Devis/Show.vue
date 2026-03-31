@@ -9,6 +9,7 @@ import {
     XCircle, 
     Edit, 
     ArrowLeft, 
+    ArrowRight,
     Mail, 
     MessageSquare,
     Files,

@@ -8,7 +8,8 @@ import {
     Edit,
     MessagesSquare,
     HardHat,
-    Plus
+    Plus,
+    Mail
 } from 'lucide-vue-next';
 
 const props = defineProps({

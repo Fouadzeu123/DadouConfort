@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-vue-next';
+import { 
+    LayoutGrid, 
+    Users, 
+    HardHat, 
+    FileText, 
+    Briefcase, 
+    Package, 
+    CreditCard, 
+    TrendingDown 
+} from 'lucide-vue-next';
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
@@ -15,6 +24,14 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
+import { index as clientsIndex } from '@/routes/clients';
+import { index as chantiersIndex } from '@/routes/chantiers';
+import { index as devisIndex } from '@/routes/devis';
+import { index as prestatairesIndex } from '@/routes/prestataires';
+import { index as servicesIndex } from '@/routes/services';
+import { index as contratsIndex } from '@/routes/contrats';
+import { index as paiementsIndex } from '@/routes/paiements';
+import { index as depensesIndex } from '@/routes/depenses';
 import type { NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [
@@ -23,20 +40,51 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: LayoutGrid,
     },
+    {
+        title: 'Clients',
+        href: clientsIndex(),
+        icon: Users,
+    },
+    {
+        title: 'Chantiers',
+        href: chantiersIndex(),
+        icon: HardHat,
+    },
+    {
+        title: 'Devis',
+        href: devisIndex(),
+        icon: FileText,
+    },
+    {
+        title: 'Prestataires',
+        href: prestatairesIndex(),
+        icon: Briefcase,
+    },
+    {
+        title: 'Services',
+        href: servicesIndex(),
+        icon: Package,
+    },
+    {
+        title: 'Contrats',
+        href: contratsIndex(),
+        icon: FileText,
+    },
 ];
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: FolderGit2,
+        title: 'Paiements',
+        href: paiementsIndex(),
+        icon: CreditCard,
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
+        title: 'Dépenses',
+        href: depensesIndex(),
+        icon: TrendingDown,
     },
 ];
+
 </script>
 
 <template>

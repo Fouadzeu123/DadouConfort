@@ -17,7 +17,34 @@ import {
 } from 'lucide-vue-next';
 import { ref, watch } from 'vue';
 
-// ... (reste du script)
+const props = defineProps({
+    devis: Object,
+    filters: Object,
+});
+
+const search = ref(props.filters?.search || '');
+
+watch(search, (value) => {
+    router.get('/devis', { search: value }, { preserveState: true, replace: true });
+});
+
+const formatDate = (date) => {
+    if (!date) return '';
+    return new Date(date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+};
+
+const formatCurrency = (val) => {
+    return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XAF' }).format(val);
+};
+
+const getStatusBadge = (status) => {
+    switch (status) {
+        case 'accepte': return { label: 'Accepté', icon: CheckCircle2, class: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400' };
+        case 'envoye': return { label: 'Envoyé', icon: Clock, class: 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400' };
+        case 'refuse': return { label: 'Refusé', icon: XCircle, class: 'bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-400' };
+        default: return { label: 'Brouillon', icon: FileText, class: 'bg-gray-100 text-gray-700 dark:bg-zinc-800 dark:text-zinc-400' };
+    }
+};
 </script>
 
 <template>

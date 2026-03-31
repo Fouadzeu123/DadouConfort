@@ -16,7 +16,31 @@ import {
 } from 'lucide-vue-next';
 import { ref, watch } from 'vue';
 
-// ... (reste du script)
+const props = defineProps({
+    prestataires: Object,
+    filters: Object,
+});
+
+const search = ref(props.filters?.search || '');
+
+watch(search, (value) => {
+    router.get('/prestataires', { search: value }, { preserveState: true, replace: true });
+});
+
+const getStatusClasses = (disponibilite) => {
+    switch (disponibilite) {
+        case 'disponible': return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400';
+        case 'occupe': return 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400';
+        case 'indisponible': return 'bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-400';
+        default: return 'bg-gray-100 text-gray-700 dark:bg-zinc-800 dark:text-zinc-400';
+    }
+};
+
+const deletePrestataire = (id) => {
+    if (confirm('Supprimer ce prestataire ?')) {
+        router.delete(`/prestataires/${id}`);
+    }
+};
 </script>
 
 <template>

@@ -7,7 +7,7 @@ npm warn Unknown project config "public-hoist-pattern". This will stop working i
 [plugin @laravel/vite-plugin-wayfinder] Types generated for actions, routes, form variants
 transforming...
 [32m✓[39m 3228 modules transformed.
-[31m✗[39m Build failed in 1m 2s
+[31m✗[39m Build failed in 3m 10s
 [31merror during build:
 [31mresources/js/layouts/auth/AuthSimpleLayout.vue?vue&type=script&setup=true&lang.ts (16:9): "home" is not exported by "resources/js/routes/index.ts", imported by "resources/js/layouts/auth/AuthSimpleLayout.vue?vue&type=script&setup=true&lang.ts".[31m
 file: [36mC:/xampp/htdocs/projects/DadouConfort/resources/js/layouts/auth/AuthSimpleLayout.vue?vue&type=script&setup=true&lang.ts:16:9[31m

@@ -18,7 +18,22 @@ import {
 } from 'lucide-vue-next';
 import { ref, watch } from 'vue';
 
-// ... (reste du script)
+const props = defineProps({
+    clients: Object,
+    filters: Object,
+});
+
+const search = ref(props.filters?.search || '');
+
+watch(search, (value) => {
+    router.get('/clients', { search: value }, { preserveState: true, replace: true });
+});
+
+const deleteClient = (id) => {
+    if (confirm('Supprimer ce client ?')) {
+        router.delete(`/clients/${id}`);
+    }
+};
 </script>
 
 <template>

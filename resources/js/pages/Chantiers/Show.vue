@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
 import Layout from '@/layouts/MobileLayout.vue';
+import AppBar from '@/components/AppBar.vue';
 import { 
     Edit,
     FileText,
@@ -13,7 +14,9 @@ import {
     Phone,
     MapPin,
     ChevronRight,
-    Plus
+    Plus,
+    MinusCircle,
+    CreditCard
 } from 'lucide-vue-next';
 import { ref, computed } from 'vue';
 
