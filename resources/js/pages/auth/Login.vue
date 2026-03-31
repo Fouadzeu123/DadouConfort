@@ -31,7 +31,7 @@ const submit = () => {
             <!-- Logo area -->
             <div class="text-center mb-10">
                 <div class="inline-flex items-center justify-center w-20 h-20 bg-primary text-white rounded-[2rem] shadow-2xl shadow-primary/20 mb-6 font-black text-3xl">
-                    D
+                    <img src="/img/logo.jpeg" alt="Logo" class="w-full h-full object-cover rounded-[2rem]">
                 </div>
                 <h1 class="text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">DadouConfort</h1>
                 <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mt-2">Artisan Premium Management</p>
@@ -49,7 +49,7 @@ const submit = () => {
                         <label for="email" class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Adresse Email</label>
                         <div class="relative group">
                             <Mail class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-primary transition-colors" />
-                            <input 
+                            <input
                                 id="email"
                                 v-model="form.email"
                                 type="email"
@@ -71,7 +71,7 @@ const submit = () => {
                         </div>
                         <div class="relative group">
                             <Lock class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-primary transition-colors" />
-                            <input 
+                            <input
                                 id="password"
                                 v-model="form.password"
                                 :type="showPassword ? 'text' : 'password'"
@@ -80,7 +80,7 @@ const submit = () => {
                                 placeholder="••••••••"
                                 class="w-full pl-12 pr-12 py-4 bg-gray-50 dark:bg-zinc-800 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-primary/20 dark:text-white transition-all outline-none"
                             >
-                            <button 
+                            <button
                                 type="button"
                                 @click="showPassword = !showPassword"
                                 class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
@@ -102,8 +102,8 @@ const submit = () => {
                     </div>
 
                     <!-- Submit Button -->
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         :disabled="form.processing"
                         class="w-full py-5 bg-primary text-white rounded-3xl font-black text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-3 active:scale-95 transition-all shadow-xl shadow-primary/20 disabled:opacity-50 disabled:active:scale-100"
                     >
