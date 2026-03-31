@@ -11,13 +11,20 @@ return new class extends Migration
         Schema::table('contrats', function (Blueprint $table) {
             $table->enum('type', ['client', 'prestataire'])->default('client')->after('numero');
             $table->foreignId('prestataire_id')->nullable()->after('client_id')->constrained('prestataires')->nullOnDelete();
-            $table->string('client_id')->change(); // Pour permettre de passer null si c'est un contrat prestataire
         });
         
-        // Comme SQLite ne gère pas bien les changements de colonnes complexes via Blueprint, on va ruser
-        // ou simplement s'assurer que client_id est nullable
+        // Pour permettre de passer null si c'est un contrat prestataire,
+        // on doit supprimer la contrainte, modifier la colonne, et remettre la contrainte.
+        Schema::table('contrats', function (Blueprint $table) {
+            $table->dropForeign(['client_id']);
+        });
+
         Schema::table('contrats', function (Blueprint $table) {
             $table->unsignedBigInteger('client_id')->nullable()->change();
+        });
+
+        Schema::table('contrats', function (Blueprint $table) {
+            $table->foreign('client_id')->references('id')->on('clients')->cascadeOnDelete();
         });
     }
 
@@ -26,6 +33,18 @@ return new class extends Migration
         Schema::table('contrats', function (Blueprint $table) {
             $table->dropForeign(['prestataire_id']);
             $table->dropColumn(['type', 'prestataire_id']);
+        });
+        
+        Schema::table('contrats', function (Blueprint $table) {
+            $table->dropForeign(['client_id']);
+        });
+
+        Schema::table('contrats', function (Blueprint $table) {
+            $table->unsignedBigInteger('client_id')->nullable(false)->change();
+        });
+
+        Schema::table('contrats', function (Blueprint $table) {
+            $table->foreign('client_id')->references('id')->on('clients')->cascadeOnDelete();
         });
     }
 };
