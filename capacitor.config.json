@@ -1,0 +1,9 @@
+{
+  "appId": "com.dadouconfort.app",
+  "appName": "DadouConfort",
+  "webDir": "public",
+  "server": {
+    "url": "https://dadouconfort.apotreonesime.com",
+    "cleartext": true
+  }
+}

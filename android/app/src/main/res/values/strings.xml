@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">DadouConfort</string>
+    <string name="title_activity_main">DadouConfort</string>
+    <string name="package_name">com.dadouconfort.app</string>
+    <string name="custom_url_scheme">com.dadouconfort.app</string>
+</resources>
