@@ -1,9 +1,35 @@
 {
   "appId": "com.dadouconfort.app",
   "appName": "DadouConfort",
-  "webDir": "public",
+  "webDir": "www",
   "server": {
     "url": "https://dadouconfort.apotreonesime.com",
-    "cleartext": true
+    "cleartext": true,
+    "allowNavigation": [
+      "dadouconfort.apotreonesime.com"
+    ]
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "launchAutoHide": true,
+      "backgroundColor": "#ffffff",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": true,
+      "androidSpinnerStyle": "large",
+      "iosSpinnerStyle": "small",
+      "spinnerColor": "#999999",
+      "splashFullScreen": true,
+      "splashImmersive": true
+    },
+    "StatusBar": {
+      "style": "DARK"
+    },
+    "Keyboard": {
+      "resize": "body",
+      "style": "DARK",
+      "resizeOnFullScreen": true
+    }
   }
 }

@@ -10,7 +10,10 @@
         "format:check": "prettier --check resources/",
         "lint": "eslint . --fix",
         "lint:check": "eslint .",
-        "types:check": "vue-tsc --noEmit"
+        "types:check": "vue-tsc --noEmit",
+        "cap:sync": "npx cap sync",
+        "cap:open": "npx cap open android",
+        "cap:assets": "npx capacitor-assets generate --android"
     },
     "devDependencies": {
         "@capacitor/assets": "^3.0.5",
@@ -37,7 +40,14 @@
     },
     "dependencies": {
         "@capacitor/android": "^8.3.0",
+        "@capacitor/app": "^8.1.0",
+        "@capacitor/browser": "^8.0.3",
         "@capacitor/core": "^8.3.0",
+        "@capacitor/device": "^8.0.2",
+        "@capacitor/haptics": "^8.0.2",
+        "@capacitor/keyboard": "^8.0.2",
+        "@capacitor/splash-screen": "^8.0.1",
+        "@capacitor/status-bar": "^8.0.2",
         "@inertiajs/vue3": "^2.3.7",
         "@vueuse/core": "^12.8.2",
         "class-variance-authority": "^0.7.1",

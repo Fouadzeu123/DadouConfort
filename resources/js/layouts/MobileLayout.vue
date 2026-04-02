@@ -1,17 +1,19 @@
 <script setup lang="ts">
+import { Capacitor } from '@capacitor/core';
+import { Keyboard } from '@capacitor/keyboard';
 import { Link, usePage } from '@inertiajs/vue3';
-import { 
-    LayoutDashboard, 
-    Users, 
-    HardHat, 
-    FileText, 
-    CreditCard, 
-    Package, 
-    Settings,
+import {
     Briefcase,
-    TrendingDown
+    CreditCard,
+    FileText,
+    HardHat,
+    LayoutDashboard,
+    Package,
+    Settings,
+    TrendingDown,
+    Users
 } from 'lucide-vue-next';
-import { computed } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 const page = usePage();
 const currentRoute = computed(() => page.url);
@@ -32,12 +34,34 @@ const secondaryMenuItems = [
     { label: 'Dépenses', icon: TrendingDown, href: '/depenses', active: currentRoute.value.startsWith('/depenses') },
 ];
 
-import { ref } from 'vue';
 const showSecondaryMenu = ref(false);
+const isKeyboardVisible = ref(false);
 
 const toggleSecondaryMenu = () => {
     showSecondaryMenu.value = !showSecondaryMenu.value;
 };
+
+onMounted(() => {
+    if (Capacitor.isNativePlatform()) {
+        Keyboard.addListener('keyboardWillShow', () => {
+            isKeyboardVisible.value = true;
+            // Also close secondary menu if it's open
+            
+            if (showSecondaryMenu.value) {
+                showSecondaryMenu.value = false;
+            }
+        });
+        Keyboard.addListener('keyboardWillHide', () => {
+            isKeyboardVisible.value = false;
+        });
+    }
+});
+
+onUnmounted(() => {
+    if (Capacitor.isNativePlatform()) {
+        Keyboard.removeAllListeners();
+    }
+});
 </script>
 
 <template>
@@ -75,7 +99,7 @@ const toggleSecondaryMenu = () => {
         </div>
 
         <!-- Bottom Navigation -->
-        <nav class="fixed bottom-6 left-6 right-6 z-50 bg-zinc-900/90 dark:bg-zinc-900/95 backdrop-blur-xl rounded-[2.5rem] border border-white/10 flex items-center justify-around px-4 py-3 shadow-2xl transition-all">
+        <nav v-show="!isKeyboardVisible" class="fixed bottom-6 left-6 right-6 z-50 bg-zinc-900/90 dark:bg-zinc-900/95 backdrop-blur-xl rounded-[2.5rem] border border-white/10 flex items-center justify-around px-4 py-3 shadow-2xl transition-all">
             <template v-for="item in navItems" :key="item.label">
                 <Link v-if="item.href !== '#'" 
                       :href="item.href"

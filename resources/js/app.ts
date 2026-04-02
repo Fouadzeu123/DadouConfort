@@ -1,3 +1,6 @@
+import { App as CapApp } from '@capacitor/app';
+import { Capacitor } from '@capacitor/core';
+import { SplashScreen } from '@capacitor/splash-screen';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
@@ -26,3 +29,20 @@ createInertiaApp({
 
 // This will set light / dark mode on page load...
 initializeTheme();
+
+// Configuration Capacitor
+if (Capacitor.isNativePlatform()) {
+    // Gestion du bouton retour sur Android
+    CapApp.addListener('backButton', (data: { canGoBack: boolean }) => {
+        if (data.canGoBack) {
+            window.history.back();
+        } else {
+            CapApp.exitApp();
+        }
+    });
+
+    // Masquer l'écran de chargement quand l'app est prête
+    setTimeout(() => {
+        SplashScreen.hide();
+    }, 500);
+}
