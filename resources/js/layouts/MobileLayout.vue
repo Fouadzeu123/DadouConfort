@@ -15,6 +15,10 @@ import {
 } from 'lucide-vue-next';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
+defineProps<{
+    hideNav?: boolean;
+}>();
+
 const page = usePage();
 const currentRoute = computed(() => page.url);
 
@@ -108,7 +112,7 @@ onUnmounted(() => {
         </div>
 
         <!-- Bottom Navigation -->
-        <nav v-show="!isKeyboardVisible" class="fixed bottom-6 left-6 right-6 z-50 bg-zinc-900/90 dark:bg-zinc-900/95 backdrop-blur-xl rounded-[2.5rem] border border-white/10 flex items-center justify-around px-4 py-3 shadow-2xl transition-all">
+        <nav v-show="!isKeyboardVisible && !hideNav" class="fixed bottom-6 left-6 right-6 z-50 bg-zinc-900/90 dark:bg-zinc-900/95 backdrop-blur-xl rounded-[2.5rem] border border-white/10 flex items-center justify-around px-4 py-3 shadow-2xl transition-all">
             <template v-for="item in navItems" :key="item.label">
                 <Link v-if="item.href !== '#'" 
                       :href="item.href"

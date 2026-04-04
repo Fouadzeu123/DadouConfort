@@ -53,7 +53,7 @@ const STATUTS = [
 <template>
     <Head :title="isEditing ? 'Modifier Chantier' : 'Démarrer Chantier'" />
 
-    <Layout>
+    <Layout hide-nav>
         <AppBar :title="isEditing ? 'Modifier Chantier' : 'Nouveau Chantier'" 
                 show-back-button 
                 :back-href="isEditing ? `/chantiers/${chantier.id}` : '/chantiers'" />
