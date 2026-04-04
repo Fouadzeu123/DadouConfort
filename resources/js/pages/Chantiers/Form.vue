@@ -1,24 +1,22 @@
 <script setup lang="ts">
-import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
-import Layout from '@/layouts/MobileLayout.vue';
+import { Head, useForm } from '@inertiajs/vue3';
 import { 
     Save, 
     HardHat, 
     Users, 
     MapPin, 
-    FileText,
-    Settings
+    Settings,
+    FileText
 } from 'lucide-vue-next';
+import AppBar from '@/components/AppBar.vue';
+import Layout from '@/layouts/MobileLayout.vue';
 
-const props = defineProps({
-    chantier: {
-        type: Object,
-        default: null,
-    },
-    clients: Array,
-});
+const props = defineProps<{
+    chantier?: any;
+    clients: any[];
+}>();
 
-const page = usePage();
+
 const queryParams = new URLSearchParams(window.location.search);
 const defaultClientId = queryParams.get('client_id');
 
@@ -143,7 +141,17 @@ const STATUTS = [
                 </div>
             </div>
 
-            <p class="text-[10px] text-gray-400 uppercase text-center font-bold tracking-[0.2em] pb-12">DadouConfort - Pilotage Chantier</p>
+            <p class="text-[10px] text-gray-400 uppercase text-center font-bold tracking-[0.2em] pb-32">DadouConfort - Pilotage Chantier</p>
+
+            <!-- Bottom Action Bar (Mobile optimized) -->
+            <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-t border-gray-100 dark:border-zinc-900 z-50 flex items-center justify-center">
+                <button type="submit" :disabled="form.processing"
+                        class="w-full max-w-md bg-primary text-white py-4 rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-primary/20 flex items-center justify-center gap-3 active:scale-95 transition-all disabled:opacity-50">
+                    <Save v-if="!form.processing" class="w-5 h-5" />
+                    <span v-if="form.processing" class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                    {{ isEditing ? 'Mettre à jour' : 'Enregistrer le chantier' }}
+                </button>
+            </div>
         </form>
     </Layout>
 </template>

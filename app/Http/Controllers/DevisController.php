@@ -101,14 +101,8 @@ class DevisController extends Controller
     {
         $devi->load(['client', 'chantier', 'lignes']);
 
-        $sousTotal = $devi->lignes->sum(fn ($l) => $l->quantite * $l->prix_unitaire);
-        $total = $sousTotal - $devi->remise + $devi->cout_transport + $devi->cout_main_oeuvre;
-
         return Inertia::render('Devis/Show', [
-            'devis' => $devi,
-            'sousTotal' => round((float) $sousTotal, 2),
-            'total' => round((float) $total, 2),
-            'resteAPayer' => round((float) ($total - $devi->acompte), 2),
+            'devi' => $devi,
         ]);
     }
 

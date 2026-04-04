@@ -49,6 +49,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Dépenses
     Route::resource('depenses', DepenseController::class)->except(['show']);
+
+    // PDF Generation
+    Route::get('/devis/{devi}/pdf', [\App\Http\Controllers\PdfController::class, 'devis'])->name('devis.pdf');
+    Route::get('/contrats/{contrat}/pdf', [\App\Http\Controllers\PdfController::class, 'contrat'])->name('contrats.pdf');
 });
 
 require __DIR__.'/settings.php';

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
-import Layout from '@/layouts/MobileLayout.vue';
 import { 
     FileText, 
     Printer, 
@@ -21,10 +20,11 @@ import {
     Hammer
 } from 'lucide-vue-next';
 import { ref } from 'vue';
+import Layout from '@/layouts/MobileLayout.vue';
 
-const props = defineProps({
-    devi: Object,
-});
+const props = defineProps<{
+    devi: any;
+}>();
 
 const formatCurrency = (val) => {
     return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XAF' }).format(val);
@@ -35,7 +35,7 @@ const formatDate = (date) => {
 };
 
 const printDevis = () => {
-    window.print();
+    window.open(`/devis/${props.devi.id}/pdf`, '_blank');
 };
 
 const duplicateDevis = () => {
@@ -164,6 +164,7 @@ const showActions = ref(false);
                         <div class="col-span-1 text-center text-[9px] font-black font-sans text-gray-300 pt-1">{{ index + 1 }}</div>
                         <div class="col-span-6">
                             <p class="text-xs font-bold leading-relaxed dark:text-white pr-2">{{ ligne.designation }}</p>
+                            <p v-if="ligne.description" class="text-[10px] text-gray-500 dark:text-zinc-500 mt-1 italic">{{ ligne.description }}</p>
                             <p class="text-[8px] text-gray-400 uppercase font-black tracking-widest mt-1">{{ formatCurrency(ligne.prix_unitaire).replace(',00', '') }} / {{ ligne.unite }}</p>
                         </div>
                         <div class="col-span-2 text-center text-[11px] font-black dark:text-white pt-1">
@@ -181,17 +182,17 @@ const showActions = ref(false);
                 <div class="w-full max-w-[240px] space-y-3">
                     <div class="flex justify-between text-[11px] font-bold text-gray-500">
                         <span class="uppercase tracking-widest">Sous-Total Hors Taxes</span>
-                        <span class="dark:text-white">{{ formatCurrency(devi.total_ht).replace(',00', '') }}</span>
+                        <span class="dark:text-white">{{ formatCurrency(devi.sous_total).replace(',00', '') }}</span>
                     </div>
 
-                    <div v-if="devi.main_oeuvre > 0" class="flex justify-between text-[11px] font-bold text-gray-500">
+                    <div v-if="devi.cout_main_oeuvre > 0" class="flex justify-between text-[11px] font-bold text-gray-500">
                         <span class="uppercase tracking-widest">Main d'œuvre</span>
-                        <span class="dark:text-white">+{{ formatCurrency(devi.main_oeuvre).replace(',00', '') }}</span>
+                        <span class="dark:text-white">+{{ formatCurrency(devi.cout_main_oeuvre).replace(',00', '') }}</span>
                     </div>
                     
-                    <div v-if="devi.frais_transport > 0" class="flex justify-between text-[11px] font-bold text-gray-500">
+                    <div v-if="devi.cout_transport > 0" class="flex justify-between text-[11px] font-bold text-gray-500">
                         <span class="uppercase tracking-widest">Transport</span>
-                        <span class="dark:text-white">+{{ formatCurrency(devi.frais_transport).replace(',00', '') }}</span>
+                        <span class="dark:text-white">+{{ formatCurrency(devi.cout_transport).replace(',00', '') }}</span>
                     </div>
 
                     <div v-if="devi.remise > 0" class="flex justify-between text-[11px] font-bold text-rose-500 italic pb-2 border-b border-gray-100 dark:border-zinc-800">

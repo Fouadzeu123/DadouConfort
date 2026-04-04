@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import Layout from '@/layouts/MobileLayout.vue';
 import AppBar from '@/components/AppBar.vue';
 import { 
@@ -12,13 +12,13 @@ import {
 } from 'lucide-vue-next';
 import { computed } from 'vue';
 
-const props = defineProps({
-    contrat: Object,
-    totalPaye: Number,
-    solde: Number,
-    generatedContent: String,
-    contractTitle: String,
-});
+const props = defineProps<{
+    contrat: any;
+    totalPaye: number;
+    solde: number;
+    generatedContent: string;
+    contractTitle: string;
+}>();
 
 const formatCurrency = (val) => {
     return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XAF' }).format(val);
@@ -29,7 +29,7 @@ const formatDate = (date) => {
 };
 
 const printContrat = () => {
-    window.print();
+    window.open(`/contrats/${props.contrat.id}/pdf`, '_blank');
 };
 
 const duplicateContrat = () => {

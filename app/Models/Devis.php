@@ -36,6 +36,12 @@ class Devis extends Model
         'acompte' => 'decimal:2',
     ];
 
+    protected $appends = [
+        'sous_total',
+        'total_general',
+        'reste_a_payer',
+    ];
+
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
@@ -64,7 +70,7 @@ class Devis extends Model
     /**
      * Calcule le sous-total (somme des lignes)
      */
-    public function sousTotalAttribute(): float
+    public function getSousTotalAttribute(): float
     {
         return (float) $this->lignes->sum(fn ($l) => $l->quantite * $l->prix_unitaire);
     }
@@ -72,16 +78,16 @@ class Devis extends Model
     /**
      * Calcule le total général
      */
-    public function totalGeneralAttribute(): float
+    public function getTotalGeneralAttribute(): float
     {
-        return (float) ($this->sousTotalAttribute() - $this->remise + $this->cout_transport + $this->cout_main_oeuvre);
+        return (float) ($this->getSousTotalAttribute() - $this->remise + $this->cout_transport + $this->cout_main_oeuvre);
     }
 
     /**
      * Calcule le reste à payer
      */
-    public function resteAPayerAttribute(): float
+    public function getResteAPayerAttribute(): float
     {
-        return (float) ($this->totalGeneralAttribute() - $this->acompte);
+        return (float) ($this->getTotalGeneralAttribute() - $this->acompte);
     }
 }
