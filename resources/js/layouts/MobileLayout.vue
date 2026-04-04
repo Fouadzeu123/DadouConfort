@@ -42,17 +42,26 @@ const toggleSecondaryMenu = () => {
 };
 
 onMounted(() => {
+    // Native Keyboard detection
     if (Capacitor.isNativePlatform()) {
         Keyboard.addListener('keyboardWillShow', () => {
             isKeyboardVisible.value = true;
-            // Also close secondary menu if it's open
-            
             if (showSecondaryMenu.value) {
                 showSecondaryMenu.value = false;
             }
         });
         Keyboard.addListener('keyboardWillHide', () => {
             isKeyboardVisible.value = false;
+        });
+    }
+
+    // Web-based keyboard detection (height change)
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', () => {
+            if (window.visualViewport) {
+                const isSmall = window.visualViewport.height < window.innerHeight * 0.75;
+                isKeyboardVisible.value = isSmall;
+            }
         });
     }
 });

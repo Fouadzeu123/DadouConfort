@@ -56,8 +56,7 @@ const STATUTS = [
     <Layout>
         <AppBar :title="isEditing ? 'Modifier Chantier' : 'Nouveau Chantier'" 
                 show-back-button 
-                :back-href="isEditing ? `/chantiers/${chantier.id}` : '/chantiers'" 
-                :actions="[{ icon: Save, onClick: submit, class: 'bg-primary text-primary-foreground rounded-full' }]" />
+                :back-href="isEditing ? `/chantiers/${chantier.id}` : '/chantiers'" />
 
         <form @submit.prevent="submit" class="space-y-6">
             <!-- Client Selection -->
@@ -143,10 +142,10 @@ const STATUTS = [
 
             <p class="text-[10px] text-gray-400 uppercase text-center font-bold tracking-[0.2em] pb-32">DadouConfort - Pilotage Chantier</p>
 
-            <!-- Bottom Action Bar (Mobile optimized) -->
-            <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-t border-gray-100 dark:border-zinc-900 z-50 flex items-center justify-center">
+            <!-- Bottom Action Button (Inline for better mobile experience during typing) -->
+            <div class="px-4 py-8">
                 <button type="submit" :disabled="form.processing"
-                        class="w-full max-w-md bg-primary text-white py-4 rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-primary/20 flex items-center justify-center gap-3 active:scale-95 transition-all disabled:opacity-50">
+                        class="w-full bg-primary text-white py-4 rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-primary/20 flex items-center justify-center gap-3 active:scale-95 transition-all disabled:opacity-50">
                     <Save v-if="!form.processing" class="w-5 h-5" />
                     <span v-if="form.processing" class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
                     {{ isEditing ? 'Mettre à jour' : 'Enregistrer le chantier' }}
