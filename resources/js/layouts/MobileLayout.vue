@@ -78,7 +78,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="min-h-screen bg-gray-50 dark:bg-zinc-950 pb-32 flex flex-col font-sans">
+    <div class="min-h-screen bg-gray-50 dark:bg-zinc-950 flex flex-col font-sans" :class="[hideNav ? 'pb-8' : 'pb-32']">
         <!-- Main Content -->
         <main class="flex-1 w-full max-w-lg mx-auto p-4 space-y-6">
             <slot />

@@ -140,7 +140,7 @@ const STATUTS = [
                 </div>
             </div>
 
-            <p class="text-[10px] text-gray-400 uppercase text-center font-bold tracking-[0.2em] pb-32">DadouConfort - Pilotage Chantier</p>
+            <p class="text-[10px] text-gray-400 uppercase text-center font-bold tracking-[0.2em]">DadouConfort - Pilotage Chantier</p>
 
             <!-- Bottom Action Button (Inline for better mobile experience during typing) -->
             <div class="px-4 py-8">
