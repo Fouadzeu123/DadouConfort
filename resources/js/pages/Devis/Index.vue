@@ -1,43 +1,50 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
+import { ref, watch } from 'vue';
 import Layout from '@/layouts/MobileLayout.vue';
 import AppBar from '@/components/AppBar.vue';
 import { 
     Search, 
     Plus, 
     FileText, 
-    ChevronRight, 
     Clock, 
     CheckCircle2, 
     XCircle,
     User,
     Calendar,
     ArrowRight,
-    HardHat
+    HardHat,
+    Printer
 } from 'lucide-vue-next';
-import { ref, watch } from 'vue';
 
-const props = defineProps({
-    devis: Object,
-    filters: Object,
-});
+const props = defineProps<{
+    devis: {
+        data: any[];
+        links: any[];
+    };
+    filters: {
+        search?: string;
+    };
+}>();
 
 const search = ref(props.filters?.search || '');
 
-watch(search, (value) => {
+watch(search, (value: string) => {
     router.get('/devis', { search: value }, { preserveState: true, replace: true });
 });
 
-const formatDate = (date) => {
-    if (!date) return '';
+const formatDate = (date: string) => {
+    if (!date) {
+        return '';
+    }
     return new Date(date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
 };
 
-const formatCurrency = (val) => {
+const formatCurrency = (val: number) => {
     return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XAF' }).format(val);
 };
 
-const getStatusBadge = (status) => {
+const getStatusBadge = (status: string) => {
     switch (status) {
         case 'accepte': return { label: 'Accepté', icon: CheckCircle2, class: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400' };
         case 'envoye': return { label: 'Envoyé', icon: Clock, class: 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400' };
@@ -108,9 +115,16 @@ const getStatusBadge = (status) => {
                     </div>
 
                     <div class="flex items-center justify-between pt-4">
-                        <div>
-                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">Total Devis</p>
-                            <p class="text-xl font-black text-primary dark:text-white">{{ formatCurrency(devi.total_general).replace(',00', '') }}<span class="text-xs font-normal ml-1">FCFA</span></p>
+                        <div class="flex items-center gap-4">
+                            <div>
+                                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">Total Devis</p>
+                                <p class="text-xl font-black text-primary dark:text-white">{{ formatCurrency(devi.total_general).replace(',00', '') }}<span class="text-xs font-normal ml-1">FCFA</span></p>
+                            </div>
+                            <!-- Bouton Imprimer rapide -->
+                            <a :href="`/devis/${devi.id}/pdf`" target="_blank" @click.stop 
+                               class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/30 flex items-center justify-center text-indigo-500 hover:scale-110 active:scale-95 transition-all shadow-sm">
+                                <Printer class="w-5 h-5" />
+                            </a>
                         </div>
                         <div class="w-10 h-10 rounded-full bg-gray-50 dark:bg-zinc-800 flex items-center justify-center transition-transform group-hover:translate-x-1">
                             <ArrowRight class="w-5 h-5 text-gray-300" />

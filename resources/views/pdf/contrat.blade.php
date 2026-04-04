@@ -91,7 +91,7 @@
     </div>
 
     <div class="content">
-        {{ App\Services\ContractGeneratorService::generate($contrat) }}
+        {!! nl2br(e($generatedContent)) !!}
     </div>
 
     <table class="signatures">
