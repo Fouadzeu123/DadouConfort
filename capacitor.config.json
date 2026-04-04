@@ -2,6 +2,7 @@
   "appId": "com.dadouconfort.app",
   "appName": "DadouConfort",
   "webDir": "www",
+  "backgroundColor": "#f9fafb",
   "server": {
     "url": "https://dadouconfort.apotreonesime.com",
     "cleartext": true,
@@ -27,9 +28,8 @@
       "style": "DARK"
     },
     "Keyboard": {
-      "resize": "body",
-      "style": "DARK",
-      "resizeOnFullScreen": true
+      "resize": "Native",
+      "style": "DARK"
     }
   }
 }
